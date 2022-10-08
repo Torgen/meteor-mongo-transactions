@@ -16,6 +16,7 @@ Package.onUse(function(api) {
   api.use('promise');
   api.use('mongo');
   api.mainModule('src/index.ts', 'server');
+  api.mainModule('src/client.ts', 'client');
 });
 
 Package.onTest(function(api) {
