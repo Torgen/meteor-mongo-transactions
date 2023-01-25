@@ -84,7 +84,7 @@ export default function patchCollectionMethods(sessionVariable: Meteor.Environme
      * When callbacks number falls to 0, promise waiting for all callbacks to be done is resolved.
      */
     function wrapCallback(callback: Function) {
-        const context = sessionVariable.get();
+        const context = sessionVariable.getOrNullIfOutsideFiber();
         if (!context) {
             return callback;
         }
