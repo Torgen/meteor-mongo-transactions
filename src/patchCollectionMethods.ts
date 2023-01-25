@@ -110,7 +110,7 @@ export default function patchCollectionMethods(sessionVariable: Meteor.Environme
      * Function that adds session (if necessary) to options and callback method arguments.
      */
     function getOptionsAndCallbackArgs(...args) {
-        const context = sessionVariable.get();
+        const context = sessionVariable.getOrNullIfOutsideFiber();
         if (!context) {
             return args;
         }
@@ -145,7 +145,7 @@ export default function patchCollectionMethods(sessionVariable: Meteor.Environme
     const originalFind = RawCollection.prototype.find;
     // @ts-ignore
     RawCollection.prototype.find = function (query, options) {
-        const context = sessionVariable.get();
+        const context = sessionVariable.getOrNullIfOutsideFiber();
         if (context) {
             return originalFind.call(this, query, {
                 ...options,
